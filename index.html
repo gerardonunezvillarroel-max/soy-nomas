@@ -948,54 +948,217 @@
     .stagger-4 { transition-delay: 0.3s; }
     @media (prefers-reduced-motion: reduce) { .fade-up { opacity: 1; transform: none; transition: none; } }
 
-    /* ── RESPONSIVE ──────────────────────────────────── */
+    /* ══════════════════════════════════════════════════
+       RESPONSIVE — MOBILE FIRST
+    ══════════════════════════════════════════════════ */
+
+    /* ── Tablet 1100px ───────────────────────────────── */
     @media (max-width: 1100px) {
       .grid-asym { grid-template-columns: 1fr; }
-      .grid-small { border-left: none; border-top: 1px solid rgba(240,235,227,0.07); }
+      .grid-small {
+        border-left: none;
+        border-top: 1px solid rgba(240,235,227,0.07);
+      }
       .card-featured { min-height: 400px !important; }
       .sec-banner-content { width: 55%; }
     }
+
+    /* ── Tablet pequeña 768px ────────────────────────── */
     @media (max-width: 768px) {
-      .sec-banner { height: auto; min-height: 340px; flex-direction: column; justify-content: flex-end; }
-      .sec-banner-overlay { background: linear-gradient(to top, rgba(10,10,15,0.97) 0%, rgba(10,10,15,0.5) 60%, transparent 100%); }
-      .sec-banner-content { width: 100%; padding: 2rem; margin-left: 0; }
-      .article-header { padding: 1.5rem 1.5rem 1.5rem; }
+      /* Banner de sección */
+      .sec-banner {
+        height: auto;
+        min-height: 420px;
+        flex-direction: column;
+        justify-content: flex-end;
+      }
+      .sec-banner-img { background-position: center center; }
+      .sec-banner-overlay {
+        background: linear-gradient(to top,
+          rgba(10,10,15,0.97) 0%,
+          rgba(10,10,15,0.6) 50%,
+          rgba(10,10,15,0.2) 100%);
+      }
+      .sec-banner-content {
+        width: 100%;
+        padding: 2rem 1.5rem 2.5rem;
+        margin-left: 0;
+      }
+      .sec-banner-title { font-size: clamp(2rem, 8vw, 3rem); }
+
+      /* Artículos */
+      .article-header { padding: 1.5rem; }
       .article-body.open { padding: 1.5rem; }
       .article-toggle { padding: 1.2rem 1.5rem; }
+
+      /* Grillas de contenido */
+      .video-grid { grid-template-columns: 1fr; }
+      .capsulas-grid { grid-template-columns: 1fr; }
+      .rimar-grid { grid-template-columns: 1fr; }
     }
+
+    /* ── Móvil 640px ─────────────────────────────────── */
     @media (max-width: 640px) {
-      nav { padding: 1rem 1.5rem; }
+
+      /* Nav — solo logo + menú hamburguesa */
+      nav { padding: 1rem 1.2rem; }
       .nav-links { display: none; }
-      .hero-bottom { padding: 1rem 1.5rem 1.5rem; flex-direction: column; align-items: flex-start; gap: 1rem; }
-      .manifiesto { padding: 4rem 1.5rem; }
-      .manifiesto-inner { flex-direction: column; gap: 1.5rem; }
-      .section-label { padding: 3.5rem 1.5rem 1.5rem; }
-      .grid-wrapper { padding: 0 1.5rem 4rem; }
-      .grid { grid-template-columns: 1fr; }
-      .card { border-right: none !important; border-bottom: 1px solid rgba(240,235,227,0.07); min-height: 380px; }
+      .nav-mobile-open .nav-links {
+        display: flex;
+        flex-direction: column;
+        position: fixed;
+        inset: 0;
+        background: rgba(10,10,15,0.98);
+        justify-content: center;
+        align-items: center;
+        gap: 2.5rem;
+        z-index: 300;
+      }
+      .nav-mobile-open .nav-links a {
+        font-size: 1.2rem;
+        letter-spacing: 0.2em;
+      }
+
+      /* Botón hamburguesa */
+      .nav-hamburger {
+        display: flex !important;
+        flex-direction: column;
+        gap: 5px;
+        cursor: pointer;
+        padding: 4px;
+        background: none;
+        border: none;
+        z-index: 301;
+      }
+      .nav-hamburger span {
+        display: block;
+        width: 22px;
+        height: 2px;
+        background: var(--hueso);
+        transition: all 0.3s;
+      }
+      .nav-mobile-open .nav-hamburger span:nth-child(1) {
+        transform: rotate(45deg) translate(5px, 5px);
+      }
+      .nav-mobile-open .nav-hamburger span:nth-child(2) { opacity: 0; }
+      .nav-mobile-open .nav-hamburger span:nth-child(3) {
+        transform: rotate(-45deg) translate(5px, -5px);
+      }
+
+      /* Hero */
+      .hero { min-height: 100svh; }
+      .hero-bottom {
+        padding: 1rem 1.2rem 1.5rem;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 0.8rem;
+      }
+      .hero-nav-bar { gap: 0; flex-wrap: wrap; }
+      .hero-nav-bar li + li::before { margin: 0 0.8rem; }
+      .hero-nav-bar a { font-size: 0.6rem; }
+      .hero-sig { display: none; }
+
+      /* Manifiesto */
+      .manifiesto { padding: 3.5rem 1.2rem; }
+      .manifiesto-inner { flex-direction: column; gap: 1.2rem; }
+      .manifiesto-bar { height: 40px; width: 2px; }
+      .manifiesto-text { font-size: 1rem; line-height: 1.9; }
+
+      /* Label sección */
+      .section-label { padding: 3rem 1.2rem 1.5rem; }
+
+      /* Grid home */
+      .grid-wrapper { padding: 0 0 3rem; }
+      .grid-asym { border: none; }
+      .grid-small {
+        grid-template-columns: 1fr;
+        border-top: none;
+      }
+      .grid-small .card { border-right: none !important; }
+      .card {
+        border-right: none !important;
+        border-bottom: 1px solid rgba(240,235,227,0.07);
+        min-height: 320px;
+        padding: 2rem 1.2rem 1.8rem;
+      }
       .card:last-child { border-bottom: none; }
-      .cierre { padding: 5rem 1.5rem; }
+      .card-featured { min-height: 360px !important; }
+      .card-featured .card-title { font-size: 1.8rem; }
+
+      /* Cierre / email */
+      .cierre { padding: 4rem 1.2rem; }
+      .cierre-phrase { font-size: 1.3rem; }
       .email-form { flex-direction: column; }
-      .email-input { border-right: 1px solid rgba(240,235,227,0.1); border-bottom: none; }
-      footer { flex-direction: column; gap: 1rem; padding: 1.5rem; text-align: center; }
+      .email-input {
+        border-right: 1px solid rgba(240,235,227,0.1);
+        border-bottom: none;
+      }
+
+      /* Footer */
+      footer {
+        flex-direction: column;
+        gap: 1rem;
+        padding: 1.5rem 1.2rem;
+        text-align: center;
+      }
       .footer-sig { justify-content: center; }
-      .sec-content { padding: 3rem 1.5rem 5rem; }
+
+      /* Secciones internas */
+      .sec-content { padding: 2.5rem 1.2rem 4rem; }
+      .sec-banner { min-height: 380px; }
+      .sec-banner-title { font-size: clamp(1.8rem, 9vw, 2.8rem); }
+      .sec-banner-quote { font-size: 0.95rem; }
+      .sec-banner-content { padding: 1.5rem 1.2rem 2rem; }
+
+      /* Artículos Pensar */
+      .article-title { font-size: 1.2rem; }
+      .article-body p { font-size: 0.95rem; }
+      .article-toggle { padding: 1rem 1.2rem; }
+      .article-header { padding: 1.2rem; }
+      .article-body.open { padding: 1.2rem; }
+      .pull-quote {
+        font-size: 1rem;
+        padding-left: 1rem;
+        margin: 1.5rem 0;
+      }
+
+      /* Galería fotos */
+      .mirar-gallery { columns: 1; }
+      .mirar-filters { gap: 0.5rem; }
+      .filter-btn {
+        font-size: 0.6rem;
+        padding: 0.5rem 0.9rem;
+      }
+
+      /* Botón volver */
+      .btn-back { margin-bottom: 2rem; }
+    }
+
+    /* ── Móvil pequeño 380px ─────────────────────────── */
+    @media (max-width: 380px) {
+      .hero-nav-bar a { font-size: 0.55rem; letter-spacing: 0.18em; }
+      .card { padding: 1.5rem 1rem 1.5rem; }
+      .manifiesto-text { font-size: 0.95rem; }
+      .sec-banner { min-height: 340px; }
     }
   </style>
 </head>
 <body>
 
   <!-- NAV -->
-  <nav>
+  <nav id="main-nav">
     <a href="#" class="nav-logo" onclick="showPage('home')">Nomás</a>
     <ul class="nav-links">
-      <li><a href="#" onclick="showPage('home'); return false;">Inicio</a></li>
-      <li><a href="#" onclick="showPage('volar'); return false;">Volar</a></li>
-      <li><a href="#" onclick="showPage('pensar'); return false;">Pensar</a></li>
-      <li><a href="#" onclick="showPage('mirar'); return false;">Mirar</a></li>
-      <li><a href="#" onclick="showPage('crear'); return false;">Crear</a></li>
-      <li><a href="#" onclick="showPage('rimar'); return false;">Rimar</a></li>
+      <li><a href="#" onclick="showPage('home'); closeMobileNav(); return false;">Inicio</a></li>
+      <li><a href="#" onclick="showPage('volar'); closeMobileNav(); return false;">Volar</a></li>
+      <li><a href="#" onclick="showPage('pensar'); closeMobileNav(); return false;">Pensar</a></li>
+      <li><a href="#" onclick="showPage('mirar'); closeMobileNav(); return false;">Mirar</a></li>
+      <li><a href="#" onclick="showPage('crear'); closeMobileNav(); return false;">Crear</a></li>
+      <li><a href="#" onclick="showPage('rimar'); closeMobileNav(); return false;">Rimar</a></li>
     </ul>
+    <button class="nav-hamburger" id="hamburger" onclick="toggleMobileNav()" style="display:none;" aria-label="Menú">
+      <span></span><span></span><span></span>
+    </button>
   </nav>
 
   <!-- ═══════════════════════════════════
@@ -1485,6 +1648,27 @@
   </div>
 
   <script>
+    // ── Menú móvil ────────────────────────────────────
+    function toggleMobileNav() {
+      document.body.classList.toggle('nav-mobile-open');
+    }
+    function closeMobileNav() {
+      document.body.classList.remove('nav-mobile-open');
+    }
+
+    // Mostrar hamburguesa solo en móvil
+    function checkNavMode() {
+      const hamburger = document.getElementById('hamburger');
+      if (window.innerWidth <= 640) {
+        hamburger.style.display = 'flex';
+      } else {
+        hamburger.style.display = 'none';
+        closeMobileNav();
+      }
+    }
+    window.addEventListener('resize', checkNavMode);
+    checkNavMode();
+
     // ── Filtro de galería ─────────────────────────────
     function filterGallery(category, btn) {
       document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
