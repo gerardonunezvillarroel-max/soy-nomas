@@ -2062,15 +2062,44 @@
     // ── Navegación entre páginas ──────────────────────
     function showPage(id) {
       document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
-      document.getElementById('page-' + id).classList.add('active');
+      const target = document.getElementById('page-' + id);
+      if (target) target.classList.add('active');
       window.scrollTo({ top: 0, behavior: 'smooth' });
-      // Re-trigger fade-ups en la nueva página
+      history.pushState(null, '', '#' + id);
       setTimeout(() => {
         document.querySelectorAll('#page-' + id + ' .fade-up').forEach(el => {
           el.classList.add('visible');
         });
       }, 100);
     }
+
+    // ── Deep linking — leer hash al cargar ───────────
+    function loadFromHash() {
+      const hash = window.location.hash.replace('#', '');
+      const validPages = ['home', 'volar', 'pensar', 'mirar', 'crear', 'rimar'];
+      if (hash && validPages.includes(hash)) {
+        document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+        const target = document.getElementById('page-' + hash);
+        if (target) {
+          target.classList.add('active');
+          setTimeout(() => {
+            document.querySelectorAll('#page-' + hash + ' .fade-up').forEach(el => {
+              el.classList.add('visible');
+            });
+          }, 150);
+          return;
+        }
+      }
+      document.getElementById('page-home').classList.add('active');
+      setTimeout(() => {
+        document.querySelectorAll('#page-home .fade-up').forEach(el => el.classList.add('visible'));
+      }, 150);
+    }
+
+    window.addEventListener('popstate', () => {
+      loadFromHash();
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    });
 
     // ── Toggle letra rimas ────────────────────────────
     function toggleLetra(cardId, letraId, btn) {
@@ -2099,10 +2128,8 @@
     }, { threshold: 0.08 });
     document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
 
-    // Activar fade-ups del home al cargar
-    setTimeout(() => {
-      document.querySelectorAll('#page-home .fade-up').forEach(el => el.classList.add('visible'));
-    }, 150);
+    // Activar página correcta al cargar
+    loadFromHash();
   </script>
 
 </body>
