@@ -643,6 +643,58 @@
     }
     .btn-back:hover { color: var(--hueso); }
 
+    /* ── RIMAR — LETRA ACORDEÓN ──────────────────────── */
+    .rima-letra {
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.5s ease, padding 0.3s ease;
+      border-top: 0px solid rgba(240,235,227,0.05);
+    }
+
+    .rima-letra.open {
+      max-height: 2000px;
+      border-top: 1px solid rgba(240,235,227,0.05);
+    }
+
+    .letra-contenido {
+      padding: 2rem 1.8rem;
+      columns: 2;
+      column-gap: 2.5rem;
+    }
+
+    .letra-contenido p {
+      font-family: 'Lora', serif;
+      font-size: 0.88rem;
+      line-height: 1.9;
+      color: var(--dim);
+      margin-bottom: 1.2rem;
+      break-inside: avoid;
+    }
+
+    .rima-toggle {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.2rem 1.8rem;
+      cursor: pointer;
+      border-top: 1px solid rgba(240,235,227,0.05);
+      border-left: none;
+      border-right: none;
+      border-bottom: none;
+      background: none;
+      width: 100%;
+      color: inherit;
+      transition: background 0.3s;
+    }
+
+    .rima-toggle:hover { background: rgba(240,235,227,0.02); }
+
+    .rima-card.letra-open .toggle-icon { transform: rotate(45deg); }
+
+    @media (max-width: 640px) {
+      .letra-contenido { columns: 1; padding: 1.5rem 1.2rem; }
+    }
+
     /* ── CREAR — CÁPSULAS GRID ───────────────────────── */
     .capsulas-grid {
       display: grid;
@@ -1890,7 +1942,7 @@
           </div>
         </div>
 
-        <div class="rima-card">
+        <div class="rima-card" id="rima-02">
           <div class="rima-player">
             <iframe width="100%" height="166" scrolling="no" frameborder="no"
               allow="autoplay; encrypted-media"
@@ -1902,6 +1954,65 @@
             <h3 class="rima-title">Soltando Vol.1</h3>
             <p class="rima-desc">Soltar también es un acto de valentía.</p>
           </div>
+          <div class="rima-letra" id="letra-02">
+            <div class="letra-contenido">
+              <p>Esto nace de un momento a otro<br>
+              Como todo es loco<br>
+              Un poco si lo pienso noto<br>
+              Que recuerdo como en fotos<br>
+              Blanco y negro a veces<br>
+              Historias se quedaron meses<br>
+              Sin prejuicios si no hay jueces<br>
+              Nada es lo que parece</p>
+
+              <p>Créelo tú<br>
+              Y el resto se dará<br>
+              Decrétalo, proyéctalo<br>
+              Que el camino fluirá</p>
+
+              <p>Solo… me siento a momentos<br>
+              Confundido en enjambres pensamientos, unos cuentos<br>
+              Yo me invento unos pasajes<br>
+              Futuros con paisajes<br>
+              Y si pienso la verdad<br>
+              No sé ni cuánto dura este viaje</p>
+
+              <p>Mejor me visto yo de traje<br>
+              Y elegante recibo el regalo<br>
+              Que la vida me entrega<br>
+              Hay virajes raros<br>
+              Jugadas con el dado<br>
+              A la suerte, si el destino<br>
+              Será mi único jurado</p>
+
+              <p>Nada en vano,<br>
+              Tiempos buenos, tiempos malos<br>
+              Mejor todos buenos<br>
+              Es la mente que entrenado he transformado</p>
+
+              <p>Nena, esa piel morena<br>
+              Que me vuelve loco<br>
+              Un intenso, un romántico<br>
+              Valorado a veces poco<br>
+              Si pierdo el foco<br>
+              Solo es mi culpa<br>
+              Mi corazón idiota<br>
+              Qué tonto, no aprende nunca</p>
+
+              <p>Háblame directo<br>
+              Que no estoy pa' adivinanzas<br>
+              Que si no me dices todo<br>
+              Mi mente no descansa<br>
+              Sobrepienso aunque pienso<br>
+              Que lo externo no controlo<br>
+              Me quedo con lo que entrego<br>
+              Y lo que entrego creo es oro</p>
+            </div>
+          </div>
+          <button class="rima-toggle" onclick="toggleLetra('rima-02', 'letra-02', this)">
+            <span class="toggle-label">Leer letra</span>
+            <span class="toggle-icon">+</span>
+          </button>
         </div>
 
       </div>
@@ -1959,6 +2070,17 @@
           el.classList.add('visible');
         });
       }, 100);
+    }
+
+    // ── Toggle letra rimas ────────────────────────────
+    function toggleLetra(cardId, letraId, btn) {
+      const card = document.getElementById(cardId);
+      const letra = document.getElementById(letraId);
+      const isOpen = card.classList.contains('letra-open');
+      card.classList.toggle('letra-open');
+      letra.classList.toggle('open');
+      btn.querySelector('.toggle-label').textContent = isOpen ? 'Leer letra' : 'Cerrar letra';
+      btn.querySelector('.toggle-icon').style.transform = isOpen ? '' : 'rotate(45deg)';
     }
 
     // ── Toggle artículos ──────────────────────────────
